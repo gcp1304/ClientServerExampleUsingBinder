@@ -1,5 +1,6 @@
 package com.jayplabs.fibonacciservice;
 
+import android.content.Context;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
@@ -14,10 +15,23 @@ public class IFibonacciServiceImpl extends IFibonacciService.Stub {
 
     private static final String TAG = IFibonacciService.class.getCanonicalName();
 
+    private final Context mContext;
+
+    public IFibonacciServiceImpl(Context context) {
+        mContext = context;
+    }
+
+    private long checkN(long n) {
+        if (n > 10) {
+            mContext.enforceCallingOrSelfPermission(Manifest.permission.USE_SLOW_FIBONACCI_SERVICE, "Go away!");
+        }
+        return n;
+    }
+
     @Override
-    public long fibJR(long n) throws RemoteException {
+    public long fibJR(long n) {
         Log.d(TAG, String.format("fibJR(%d)", n));
-        return FibLib.fibJR(n);
+        return FibLib.fibJR(checkN(n));
     }
 
     @Override
@@ -27,9 +41,9 @@ public class IFibonacciServiceImpl extends IFibonacciService.Stub {
     }
 
     @Override
-    public long fibNR(long n) throws RemoteException {
+    public long fibNR(long n) {
         Log.d(TAG, String.format("fibNR(%d)", n));
-        return FibLib.fibNR(n);
+        return FibLib.fibNR(checkN(n));
     }
 
     @Override

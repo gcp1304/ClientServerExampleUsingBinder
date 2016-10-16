@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FibonacciService</string>
+    <string name="fibonacci_permissions_group_label">Fibonacci Permissions</string>
+    <string name="use_slow_fibonacci_service_permission_label">use slow fibonacci service operations</string>
+    <string name="use_slow_fibonacci_service_permission_description">applications with this permissions can melt the CPU and drain the battery
+        by using slow fibonacci operations</string>
+
 </resources>
